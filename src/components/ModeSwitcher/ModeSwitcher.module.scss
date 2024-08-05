@@ -1,0 +1,28 @@
+.mode-switcher {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.mode {
+  font-size: 17px;
+  font-weight: 900;
+  color: #b3b3b3;
+  cursor: pointer;
+  padding: 5px 25px;
+  border-radius: 50px;
+  transition: all linear 0.2s;
+  border: 1px dashed transparent;
+
+  &.active {
+    color: #fff;
+    cursor: default;
+    background-color: #d9d9d9;
+  }
+
+  &:not(.active):hover {
+    border: 1px dashed #d9d9d9;
+    //background-color: #eaeaea;
+    transition: all linear 0.2s;
+  }
+}

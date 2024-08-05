@@ -1,0 +1,41 @@
+.option-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &.vertical {
+    flex-direction: column;
+    justify-content: unset;
+    align-items: unset;
+  }
+}
+
+.label {
+  font-family: 'Roboto', sans-serif;
+  display: inline-flex;
+  color: rgb(151, 151, 151);
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+
+  &.horizontal {
+    display: inline-flex;
+    margin-left: 10px;
+  }
+
+  &.vertical {
+    display: flex;
+    margin-bottom: 5px;
+  }
+}
+
+.tooltip {
+  margin-left: 5px;
+}

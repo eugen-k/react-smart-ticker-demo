@@ -1,0 +1,24 @@
+.content {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 25px;
+  padding: 25px 0;
+  box-sizing: border-box;
+  transition: all linear 0.2s;
+  height: 100%;
+
+  &.option-open {
+    //height: auto;
+    transition: all linear 0.2s;
+    justify-content: flex-start;
+  }
+
+  .demo-logo {
+    width: 50px;
+    height: auto;
+    margin: 10px;
+  }
+}
