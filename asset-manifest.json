@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-smart-ticker-demo/static/css/main.babd6eec.css",
+    "main.css": "/react-smart-ticker-demo/static/css/main.03cda53a.css",
     "main.js": "/react-smart-ticker-demo/static/js/main.a1d912d5.js",
     "static/js/453.2611efe0.chunk.js": "/react-smart-ticker-demo/static/js/453.2611efe0.chunk.js",
     "static/media/apple-logo.png": "/react-smart-ticker-demo/static/media/apple-logo.f726c768e664622ff42f.png",
@@ -10,12 +10,12 @@
     "static/media/google-logo.png": "/react-smart-ticker-demo/static/media/google-logo.7184abfdc09c99d03efb.png",
     "static/media/npm-logo.svg": "/react-smart-ticker-demo/static/media/npm-logo.3538ca1760f59a6878dc476f2c0d6e43.svg",
     "index.html": "/react-smart-ticker-demo/index.html",
-    "main.babd6eec.css.map": "/react-smart-ticker-demo/static/css/main.babd6eec.css.map",
+    "main.03cda53a.css.map": "/react-smart-ticker-demo/static/css/main.03cda53a.css.map",
     "main.a1d912d5.js.map": "/react-smart-ticker-demo/static/js/main.a1d912d5.js.map",
     "453.2611efe0.chunk.js.map": "/react-smart-ticker-demo/static/js/453.2611efe0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.babd6eec.css",
+    "static/css/main.03cda53a.css",
     "static/js/main.a1d912d5.js"
   ]
 }
