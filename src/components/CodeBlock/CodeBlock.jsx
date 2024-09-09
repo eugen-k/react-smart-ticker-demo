@@ -6,51 +6,6 @@ import '../../assets/css/prism.css'
 
 require('prismjs/components/prism-jsx')
 
-const defaultOptions = {
-  'multi-line': {
-    draggable: true,
-    children: `I’m a multi-line text to be shown here as an example`,
-    smart: false,
-    autoFill: false,
-    playOnHover: false,
-    infiniteScrollView: true,
-    multiLine: 5,
-    speed: 60,
-    delay: 0,
-    delayBack: 0,
-    iterations: 'infinite',
-    disableSelect: false
-  },
-  'one-line': {
-    draggable: true,
-    children: `I’m a multi-line text to be shown here as an example`,
-    smart: false,
-    autoFill: false,
-    playOnHover: true,
-    infiniteScrollView: false,
-    isText: true,
-    speed: 60,
-    delay: 0,
-    delayBack: 0,
-    iterations: 'infinite',
-    disableSelect: false
-  },
-  html: {
-    draggable: true,
-    children: `I’m a multi-line text to be shown here as an example`,
-    smart: false,
-    autoFill: false,
-    playOnHover: false,
-    infiniteScrollView: true,
-    multiLine: 5,
-    speed: 60,
-    delay: 0,
-    delayBack: 0,
-    iterations: 'infinite',
-    disableSelect: false
-  }
-}
-
 function CodeBlock({ mode, options }) {
   /* useEffect(() => {
     Prism.highlightAll()
