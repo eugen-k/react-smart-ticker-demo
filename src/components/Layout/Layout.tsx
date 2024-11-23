@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import styles from './Layout.module.scss'
 import { SmartTicker } from 'react-smart-ticker'
 
-function Layout({ children }) {
+export const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className={styles.layout}>
       <div className={styles['bg-logo']}>

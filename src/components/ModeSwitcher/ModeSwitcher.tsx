@@ -1,8 +1,12 @@
 import React from 'react'
 
 import styles from './ModeSwitcher.module.scss'
+import { TickerMode } from '../Content/Content'
 
-function ModeSwitcher({ activeMode, setMode }) {
+export const ModeSwitcher: React.FC<{
+  activeMode: TickerMode
+  setMode: (mode: TickerMode) => void
+}> = ({ activeMode, setMode }) => {
   return (
     <div className={styles['mode-switcher']}>
       <div

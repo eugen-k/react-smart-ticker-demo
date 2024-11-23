@@ -6,10 +6,16 @@ import styles from './Options.module.scss'
 import MenuIcon from '../MenuIcon/MenuIcon'
 import { Input, Switch, Slider, Row, Col, ConfigProvider, Segmented, Modal } from 'antd'
 import OptionRow from '../OptionRow/OptionRow'
+import { defaultOptions, OptionsType, TickerMode } from '../Content/Content'
 import CodeBlock from '../CodeBlock/CodeBlock'
-import { defaultOptions } from '../Content/Content'
 
-function Options({ mode, isOpen, setOptionOpen, options, setOptions }) {
+export const Options: React.FC<{
+  mode: TickerMode
+  isOpen: boolean
+  setOptionOpen: (isOpen: boolean) => void
+  options: OptionsType
+  setOptions: (options: OptionsType) => void
+}> = ({ mode, isOpen, setOptionOpen, options, setOptions }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
@@ -265,7 +271,7 @@ function Options({ mode, isOpen, setOptionOpen, options, setOptions }) {
                   <OptionRow label={'Ticker text'} layout='vertical'>
                     <Input
                       type='text'
-                      value={options[mode].children}
+                      value={options[mode].children as string}
                       onChange={(e) =>
                         setOptions({
                           ...options,
@@ -285,7 +291,10 @@ function Options({ mode, isOpen, setOptionOpen, options, setOptions }) {
                       onChange={(value) => {
                         setOptions({
                           ...options,
-                          [mode]: { ...options[mode], direction: value.toLowerCase() }
+                          [mode]: {
+                            ...options[mode],
+                            direction: value.toLowerCase() as 'left' | 'right'
+                          }
                         })
                       }}
                     />
@@ -302,7 +311,10 @@ function Options({ mode, isOpen, setOptionOpen, options, setOptions }) {
                       onChange={(value) => {
                         setOptions({
                           ...options,
-                          [mode]: { ...options[mode], direction: value.toLowerCase() }
+                          [mode]: {
+                            ...options[mode],
+                            direction: value.toLowerCase() as 'left' | 'right'
+                          }
                         })
                       }}
                     />

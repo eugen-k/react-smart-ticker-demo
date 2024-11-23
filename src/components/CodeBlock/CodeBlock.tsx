@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+//@ts-ignore
 import Prism from 'prismjs'
+import 'prismjs/components/prism-jsx'
 
 import styles from './CodeBlock.module.scss'
 import '../../assets/css/prism.css'
+import { TickerMode, ExtendedTickerOptions } from '../Content/Content'
 
-require('prismjs/components/prism-jsx')
-
-function CodeBlock({ mode, options }) {
+export const CodeBlock: React.FC<{ mode: TickerMode; options: ExtendedTickerOptions }> = ({
+  mode,
+  options
+}) => {
   /* useEffect(() => {
     Prism.highlightAll()
   }, []) */

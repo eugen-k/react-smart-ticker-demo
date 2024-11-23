@@ -4,9 +4,12 @@ import { CopyOutlined } from '@ant-design/icons'
 
 import styles from './CopyCode.module.scss'
 
-const { Paragraph, Text } = Typography
+const { Text } = Typography
 
-function CopyCode({ children, className }) {
+export const CopyCode: React.FC<{ children: string; className: string }> = ({
+  children,
+  className
+}) => {
   return (
     <div className={styles['copy-code'] + ' ' + className}>
       {children}
@@ -20,5 +23,3 @@ function CopyCode({ children, className }) {
     </div>
   )
 }
-
-export default CopyCode

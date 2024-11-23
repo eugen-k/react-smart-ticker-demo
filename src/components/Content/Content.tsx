@@ -1,14 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode, ComponentProps } from 'react'
 
 import styles from './Content.module.scss'
-import Ticker from '../Ticker/Ticker'
+
 import ModeSwitcher from '../ModeSwitcher/ModeSwitcher'
 import Options from '../Options/Options'
 import appleLogo from '../../assets/images/apple-logo.png'
 import microsoftLogo from '../../assets/images/microsoft-logo.png'
 import googleLogo from '../../assets/images/google-logo.png'
+import { SmartTicker, SmartTickerDraggable } from 'react-smart-ticker'
+import Ticker from '../Ticker/Ticker'
 
-export const defaultOptions = {
+// Infer the props from SmartTicker
+export type TickerOptions = ComponentProps<typeof SmartTicker> &
+  ComponentProps<typeof SmartTickerDraggable>
+
+// Extend the type if necessary
+export type ExtendedTickerOptions = TickerOptions & {
+  draggable: boolean
+  children: ReactNode | string
+}
+
+// Define your OptionsType
+export type OptionsType = {
+  'multi-line': ExtendedTickerOptions
+  'one-line': ExtendedTickerOptions
+  html: ExtendedTickerOptions
+}
+
+export type TickerMode = 'multi-line' | 'one-line' | 'html'
+
+export const defaultOptions: OptionsType = {
   'multi-line': {
     draggable: true,
     smart: false,
@@ -47,21 +68,21 @@ export const defaultOptions = {
     children: (
       <>
         <img
-          src={appleLogo}
+          src={appleLogo as unknown as string}
           alt='Apple logo'
           className={styles['demo-logo']}
           width={'50px'}
           height={'50px'}
         />
         <img
-          src={microsoftLogo}
+          src={microsoftLogo as unknown as string}
           alt='Microsoft logo'
           className={styles['demo-logo']}
           width={'50px'}
           height={'50px'}
         />
         <img
-          src={googleLogo}
+          src={googleLogo as unknown as string}
           alt='Google logo'
           className={styles['demo-logo']}
           width={'50px'}
@@ -84,7 +105,7 @@ export const defaultOptions = {
 }
 
 function Content() {
-  const [mode, setMode] = useState('multi-line')
+  const [mode, setMode] = useState<TickerMode>('multi-line')
   const [isOptionOpen, setIsOptionOpen] = useState(false)
   const [options, setOptions] = useState(defaultOptions)
 

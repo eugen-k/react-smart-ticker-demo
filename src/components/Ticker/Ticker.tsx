@@ -1,14 +1,16 @@
 import React from 'react'
 
 import styles from './Ticker.module.scss'
-import { SmartTicker, SmartTickerDraggable } from 'react-smart-ticker'
+import { SmartTicker } from 'react-smart-ticker'
+import { SmartTickerDraggable } from 'react-smart-ticker'
+import { ExtendedTickerOptions, TickerMode } from '../Content/Content'
 
-function Ticker({ mode, options }) {
-  console.log('mode', mode)
-  console.log('multiLine', options.multiLine)
-  console.log('options.direction', options.direction)
+const Ticker: React.FC<{ mode: TickerMode; options: ExtendedTickerOptions }> = ({
+  mode,
+  options
+}) => {
   return (
-    <div className={`${styles.ticker} ${styles[mode]} ${styles[options.direction]}`}>
+    <div className={`${styles.ticker} ${styles[mode]} ${styles[options.direction!]}`}>
       {options.draggable && (
         <SmartTickerDraggable
           smart={options.smart}

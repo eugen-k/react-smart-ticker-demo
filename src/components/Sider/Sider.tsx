@@ -1,11 +1,11 @@
 import React from 'react'
-import { ReactComponent as GHLogo } from '../../assets/images/gh-logo.svg'
-import { ReactComponent as NPMLogo } from '../../assets/images/npm-logo.svg'
-import { ReactComponent as MailLogo } from '../../assets/images/mail-logo.svg'
+import GHLogo from '../../assets/images/gh-logo.svg'
+import NPMLogo from '../../assets/images/npm-logo.svg'
+import MailLogo from '../../assets/images/mail-logo.svg'
 
 import styles from './Sider.module.scss'
 
-function Sider({ children }) {
+export const Sider: React.FC = () => {
   return (
     <div className={styles.sider}>
       <p className={styles.descr}>
@@ -18,15 +18,15 @@ function Sider({ children }) {
 
       <div className={styles.links}>
         <div className={styles.link}>
-          <GHLogo />
+          <img src={GHLogo} alt='' />
           <a href='https://github.com/eugen-k/react-smart-ticker'>GitHub</a>
         </div>
         <div className={styles.link}>
-          <NPMLogo />
+          <img src={NPMLogo} alt='' />
           <a href='https://www.npmjs.com/package/react-smart-ticker'>NPM</a>
         </div>
         <div className={styles.link}>
-          <MailLogo />
+          <img src={MailLogo} alt='' />
           <a href='mailto:eugen.korolev@gmail.com'>Contact</a>
         </div>
       </div>

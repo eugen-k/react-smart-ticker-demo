@@ -1,5 +1,3 @@
-import { SmartTickerDraggable, SmartTicker } from 'react-smart-ticker'
-
 import styles from './App.module.scss'
 import Sider from './components/Sider/Sider'
 import Layout from './components/Layout/Layout'
