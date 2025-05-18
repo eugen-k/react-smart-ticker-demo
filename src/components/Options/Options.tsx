@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { RefObject, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ReloadOutlined } from '@ant-design/icons'
+import {
+  PauseCircleFilled,
+  PlayCircleFilled,
+  ReloadOutlined,
+  SyncOutlined
+} from '@ant-design/icons'
 
 import styles from './Options.module.scss'
 import MenuIcon from '../MenuIcon/MenuIcon'
-import { Input, Switch, Slider, Row, Col, ConfigProvider, Segmented, Modal } from 'antd'
+import { Input, Switch, Slider, Row, Col, ConfigProvider, Segmented, Modal, Button } from 'antd'
 import OptionRow from '../OptionRow/OptionRow'
-import { defaultOptions, OptionsType, TickerMode } from '../Content/Content'
+import { defaultOptions, OptionsType, SmartTickerHandle, TickerMode } from '../Content/Content'
 import CodeBlock from '../CodeBlock/CodeBlock'
 
 export const Options: React.FC<{
@@ -15,8 +20,23 @@ export const Options: React.FC<{
   setOptionOpen: (isOpen: boolean) => void
   options: OptionsType
   setOptions: (options: OptionsType) => void
-}> = ({ mode, isOpen, setOptionOpen, options, setOptions }) => {
+  tickerRef: RefObject<SmartTickerHandle>
+}> = ({ mode, isOpen, setOptionOpen, options, setOptions, tickerRef }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+
+  // Define handlers to control the ticker
+  const handlePlay = () => {
+    tickerRef.current?.play()
+  }
+
+  const handlePause = () => {
+    tickerRef.current?.pause()
+  }
+
+  const handleReset = (isPaused: boolean = true) => {
+    tickerRef.current?.reset(isPaused)
+  }
 
   return (
     <div className={styles.options}>
@@ -74,23 +94,100 @@ export const Options: React.FC<{
           >
             <Row>
               <Col span={24}>
+                <OptionRow label={'Controls'} layout='vertical'>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      whiteSpace: 'nowrap',
+                      rowGap: '10px',
+                      columnGap: '10px',
+                      marginBottom: '20px'
+                    }}
+                  >
+                    <PlayCircleFilled
+                      style={{ fontSize: '30px', color: '#4d4d4d' }}
+                      onClick={() => handlePlay()}
+                    />
+
+                    <PauseCircleFilled
+                      style={{ fontSize: '30px', color: '#4d4d4d' }}
+                      onClick={() => handlePause()}
+                    />
+
+                    <span
+                      style={{
+                        width: '30px',
+                        height: '30px',
+                        borderRadius: '30px',
+                        backgroundColor: '#4d4d4d',
+                        display: 'inline-flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <SyncOutlined
+                        style={{ fontSize: '14px', color: 'white' }}
+                        onClick={() => handleReset(true)}
+                      />
+                    </span>
+                  </div>
+                </OptionRow>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span={24}>
                 <OptionRow
-                  label={<strong style={{ fontSize: 16 }}>Draggable</strong>}
-                  layout='horizontal'
+                  label={'Animation type'}
+                  layout='vertical'
                   tooltip={
-                    options[mode].draggable
-                      ? `<SmartTickerDraggable> component`
-                      : `<SmartTicker> component`
+                    <>
+                      <strong>CSS: </strong>
+                      {`<SmartTicker>`} <br />
+                      <strong>JS: </strong>
+                      {`<SmartTickerDraggable>`}
+                    </>
                   }
                 >
-                  <Switch
-                    size='default'
-                    checked={options[mode].draggable}
-                    onChange={(checked) => {
-                      setOptions({ ...options, [mode]: { ...options[mode], draggable: checked } })
+                  <Segmented
+                    block
+                    style={{ textTransform: 'uppercase' }}
+                    options={['CSS', 'JS']}
+                    value={options[mode].css ? 'CSS' : 'JS'}
+                    onChange={(value) => {
+                      setOptions({
+                        ...options,
+                        [mode]: {
+                          ...options[mode],
+                          css: (value as 'CSS' | 'JS') === 'CSS'
+                        }
+                      })
                     }}
                   />
                 </OptionRow>
+
+                {!options[mode].css && (
+                  <OptionRow
+                    label={'Draggable'}
+                    layout='horizontal'
+                    tooltip={
+                      options[mode].draggable
+                        ? `<SmartTickerDraggable> component`
+                        : `<SmartTicker> component`
+                    }
+                  >
+                    <Switch
+                      size='small'
+                      checked={options[mode].draggable}
+                      onChange={(checked) => {
+                        setOptions({ ...options, [mode]: { ...options[mode], draggable: checked } })
+                      }}
+                    />
+                  </OptionRow>
+                )}
 
                 <OptionRow
                   label={'Smart mode'}
@@ -171,7 +268,7 @@ export const Options: React.FC<{
                   />
                 </OptionRow>
 
-                {!options[mode].draggable && (
+                {options[mode].css && (
                   <>
                     <OptionRow label={'Play on click'} layout='horizontal'>
                       <Switch
@@ -357,6 +454,24 @@ export const Options: React.FC<{
                   />
                 </OptionRow>
 
+                {!options[mode].css && (
+                  <OptionRow label={'Speed back (px/second)'} layout='vertical'>
+                    <Slider
+                      marks={{
+                        0: '0',
+                        60: '60',
+                        150: '150'
+                      }}
+                      value={options[mode].speedBack}
+                      min={0}
+                      max={150}
+                      onChange={(value) =>
+                        setOptions({ ...options, [mode]: { ...options[mode], speedBack: value } })
+                      }
+                    />
+                  </OptionRow>
+                )}
+
                 <OptionRow label={'Delay (ms)'} layout='vertical'>
                   <Slider
                     marks={{
@@ -382,7 +497,7 @@ export const Options: React.FC<{
                   />
                 </OptionRow>
 
-                {options[mode].draggable && (
+                {!options[mode].css && (
                   <OptionRow label={'Delay back (ms)'} layout='vertical'>
                     <Slider
                       marks={{

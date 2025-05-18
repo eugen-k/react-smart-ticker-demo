@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { RefObject } from 'react'
 
 import styles from './Ticker.module.scss'
 import { SmartTicker } from 'react-smart-ticker'
 import { SmartTickerDraggable } from 'react-smart-ticker'
-import { ExtendedTickerOptions, TickerMode } from '../Content/Content'
+import { ExtendedTickerOptions, SmartTickerHandle, TickerMode } from '../Content/Content'
 
-const Ticker: React.FC<{ mode: TickerMode; options: ExtendedTickerOptions }> = ({
-  mode,
-  options
-}) => {
+const Ticker: React.FC<{
+  mode: TickerMode
+  options: ExtendedTickerOptions
+  tickerRef: RefObject<SmartTickerHandle>
+}> = ({ mode, options, tickerRef }) => {
   return (
     <div className={`${styles.ticker} ${styles[mode]} ${styles[options.direction!]}`}>
-      {options.draggable && (
+      {!options.css && (
         <SmartTickerDraggable
           smart={options.smart}
           isText={options.isText}
@@ -21,18 +22,21 @@ const Ticker: React.FC<{ mode: TickerMode; options: ExtendedTickerOptions }> = (
           playOnHover={options.playOnHover}
           pauseOnHover={options.pauseOnHover}
           speed={options.speed}
+          speedBack={options.speedBack}
           delay={options.delay}
           delayBack={options.delayBack}
           iterations={options.iterations}
           disableSelect={options.disableSelect}
           direction={options.direction}
           rtl={options.rtl}
+          disableDragging={!options.draggable}
+          forwardedRef={tickerRef}
         >
           {options.children}
         </SmartTickerDraggable>
       )}
 
-      {!options.draggable && (
+      {options.css && (
         <SmartTicker
           smart={options.smart}
           isText={options.isText}
@@ -49,6 +53,7 @@ const Ticker: React.FC<{ mode: TickerMode; options: ExtendedTickerOptions }> = (
           disableSelect={options.disableSelect}
           direction={options.direction}
           rtl={options.rtl}
+          forwardedRef={tickerRef}
         >
           {options.children}
         </SmartTicker>

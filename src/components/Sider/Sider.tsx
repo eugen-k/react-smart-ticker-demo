@@ -18,15 +18,15 @@ export const Sider: React.FC = () => {
 
       <div className={styles.links}>
         <div className={styles.link}>
-          <img src={GHLogo} alt='' />
+          <img src={GHLogo} width={17} alt='' />
           <a href='https://github.com/eugen-k/react-smart-ticker'>GitHub</a>
         </div>
         <div className={styles.link}>
-          <img src={NPMLogo} alt='' />
+          <img src={NPMLogo} width={17} alt='' />
           <a href='https://www.npmjs.com/package/react-smart-ticker'>NPM</a>
         </div>
         <div className={styles.link}>
-          <img src={MailLogo} alt='' />
+          <img src={MailLogo} width={17} alt='' />
           <a href='mailto:eugen.korolev@gmail.com'>Contact</a>
         </div>
       </div>

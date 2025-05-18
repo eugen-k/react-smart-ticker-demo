@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, ComponentProps } from 'react'
+import React, { useState, ReactNode, ComponentProps, useRef } from 'react'
 
 import styles from './Content.module.scss'
 
@@ -16,6 +16,7 @@ export type TickerOptions = ComponentProps<typeof SmartTicker> &
 
 // Extend the type if necessary
 export type ExtendedTickerOptions = TickerOptions & {
+  css: boolean
   draggable: boolean
   children: ReactNode | string
 }
@@ -27,10 +28,17 @@ export type OptionsType = {
   html: ExtendedTickerOptions
 }
 
+export type SmartTickerHandle = {
+  play: () => void
+  pause: () => void
+  reset: (pause: boolean) => void
+}
+
 export type TickerMode = 'multi-line' | 'one-line' | 'html'
 
 export const defaultOptions: OptionsType = {
   'multi-line': {
+    css: false,
     draggable: true,
     smart: false,
     autoFill: false,
@@ -39,6 +47,7 @@ export const defaultOptions: OptionsType = {
     infiniteScrollView: false,
     multiLine: 5,
     speed: 60,
+    speedBack: 60,
     delay: 0,
     delayBack: 0,
     iterations: 1,
@@ -47,6 +56,7 @@ export const defaultOptions: OptionsType = {
     children: `Multi-line text to be shown here as an example of not-fitted content`
   },
   'one-line': {
+    css: false,
     draggable: true,
     children: `1-line text to be shown here as an example of not fitted content`,
     smart: false,
@@ -55,6 +65,7 @@ export const defaultOptions: OptionsType = {
     infiniteScrollView: false,
     isText: true,
     speed: 60,
+    speedBack: 60,
     delay: 0,
     delayBack: 0,
     iterations: 'infinite',
@@ -63,6 +74,7 @@ export const defaultOptions: OptionsType = {
     rtl: false
   },
   html: {
+    css: false,
     isText: false,
     draggable: true,
     children: (
@@ -96,6 +108,7 @@ export const defaultOptions: OptionsType = {
     pauseOnHover: true,
     infiniteScrollView: true,
     speed: 60,
+    speedBack: 60,
     delay: 0,
     delayBack: 0,
     iterations: 'infinite',
@@ -109,16 +122,19 @@ function Content() {
   const [isOptionOpen, setIsOptionOpen] = useState(false)
   const [options, setOptions] = useState(defaultOptions)
 
+  const tickerRef = useRef<SmartTickerHandle>(null)
+
   return (
     <div className={`${styles.content} ${isOptionOpen ? styles['option-open'] : ''}`}>
       <ModeSwitcher activeMode={mode} setMode={setMode} />
-      <Ticker options={options[mode]} mode={mode} />
+      <Ticker options={options[mode]} mode={mode} tickerRef={tickerRef} />
       <Options
         mode={mode}
         isOpen={isOptionOpen}
         setOptionOpen={setIsOptionOpen}
         options={options}
         setOptions={setOptions}
+        tickerRef={tickerRef}
       />
     </div>
   )
