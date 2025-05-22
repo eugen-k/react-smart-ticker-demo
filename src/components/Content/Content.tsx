@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, ComponentProps, useRef } from 'react'
+import React, { useState, ReactNode, ComponentProps, useRef, useMemo, useEffect } from 'react'
 
 import styles from './Content.module.scss'
 
@@ -117,17 +117,50 @@ export const defaultOptions: OptionsType = {
   }
 }
 
-function Content() {
+const Content: React.FC = () => {
   const [mode, setMode] = useState<TickerMode>('multi-line')
   const [isOptionOpen, setIsOptionOpen] = useState(false)
   const [options, setOptions] = useState(defaultOptions)
 
   const tickerRef = useRef<SmartTickerHandle>(null)
 
+  const isTouchDevice = useMemo(() => {
+    return (
+      (window && 'ontouchstart' in window) ||
+      navigator?.maxTouchPoints > 0 ||
+      window?.matchMedia('(pointer: coarse)').matches
+    )
+  }, [])
+
+  useEffect(() => {
+    if (isTouchDevice) {
+      setOptions((prev) => ({
+        ...prev,
+        'one-line': {
+          ...prev['one-line'],
+          disableSelect: isTouchDevice
+        },
+        'multi-line': {
+          ...prev['multi-line'],
+          disableSelect: isTouchDevice
+        },
+        html: {
+          ...prev.html,
+          disableSelect: isTouchDevice
+        }
+      }))
+    }
+  }, [])
+
   return (
     <div className={`${styles.content} ${isOptionOpen ? styles['option-open'] : ''}`}>
       <ModeSwitcher activeMode={mode} setMode={setMode} />
-      <Ticker options={options[mode]} mode={mode} tickerRef={tickerRef} />
+      <Ticker
+        options={options[mode]}
+        mode={mode}
+        tickerRef={tickerRef}
+        children={options[mode].children}
+      />
       <Options
         mode={mode}
         isOpen={isOptionOpen}

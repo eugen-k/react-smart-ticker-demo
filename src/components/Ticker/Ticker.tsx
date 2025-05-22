@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react'
+import React, { RefObject, useMemo } from 'react'
 
 import styles from './Ticker.module.scss'
 import { SmartTicker } from 'react-smart-ticker'
@@ -9,11 +9,13 @@ const Ticker: React.FC<{
   mode: TickerMode
   options: ExtendedTickerOptions
   tickerRef: RefObject<SmartTickerHandle>
-}> = ({ mode, options, tickerRef }) => {
+  children: React.ReactNode
+}> = ({ mode, options, tickerRef, children }) => {
   return (
     <div className={`${styles.ticker} ${styles[mode]} ${styles[options.direction!]}`}>
       {!options.css && (
         <SmartTickerDraggable
+          key={children!.toString()}
           smart={options.smart}
           isText={options.isText}
           autoFill={options.autoFill}
@@ -32,12 +34,13 @@ const Ticker: React.FC<{
           disableDragging={!options.draggable}
           forwardedRef={tickerRef}
         >
-          {options.children}
+          {children}
         </SmartTickerDraggable>
       )}
 
       {options.css && (
         <SmartTicker
+          key={children!.toString()}
           smart={options.smart}
           isText={options.isText}
           autoFill={options.autoFill}
@@ -55,7 +58,7 @@ const Ticker: React.FC<{
           rtl={options.rtl}
           forwardedRef={tickerRef}
         >
-          {options.children}
+          {children}
         </SmartTicker>
       )}
     </div>
