@@ -1824,10 +1824,10 @@ react-refresh@^0.14.2:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.2.tgz"
   integrity sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==
 
-react-smart-ticker@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/react-smart-ticker/-/react-smart-ticker-1.5.2.tgz#2cf5bb49ae127e6e3d01f89194135100cd9618d4"
-  integrity sha512-ODAdSJR2iOxWKZDWyioT6WKsNQhbAGkz1He6KSUSSnMnuWMf6Q+tO2Jgpr/be7XTCPbwQpDS7dlNmxFf5OlIrA==
+react-smart-ticker@^1.5.5:
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/react-smart-ticker/-/react-smart-ticker-1.5.5.tgz#c04495abc33c39f75aed2b073164dc8c9d2278f2"
+  integrity sha512-tU0JEhJI0l+dN5o1Lzdp9D9qmYvU5jFKIhM1WvLl8sNN9o+wso++kSxXWSDm8sSghjpp6jqXupjW88gHW+xZtQ==
 
 react@^18.3.1:
   version "18.3.1"
