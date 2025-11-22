@@ -56,6 +56,7 @@ export const CodeBlock: React.FC<{ mode: TickerMode; options: ExtendedTickerOpti
       : ``) +
     `infiniteScrollView={${options.infiniteScrollView}}
     speed={${options.speed}}
+    speedBack={${options.speedBack}}
     delay={${options.delay}}
     delayBack={${options.delayBack}}
     iterations={${Number(options.iterations) || `"infinite"`}}

@@ -9,7 +9,7 @@ export const Sider: React.FC = () => {
   return (
     <div className={styles.sider}>
       <p className={styles.descr}>
-        React <b>component</b> that transforms child elements into a ticker/marquee
+        React <i>component</i> that transforms child elements into a <b>ticker/marquee</b>
       </p>
 
       {/* <CopyCode className={styles.copycode}>npm i react-smart-ticker</CopyCode>

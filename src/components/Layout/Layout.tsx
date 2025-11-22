@@ -15,7 +15,7 @@ export const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
           infiniteScrollView
           disableSelect
         >
-          ReactSmartTicket
+          ReactSmartTicker
         </SmartTicker>
       </div>
 
